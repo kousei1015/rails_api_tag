@@ -1,24 +1,8 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on RailsのAPIモードを使って、簡単な投稿にタグが付けられる機能を作ってみました。
+こちらがGetメソッドのレスポンス
+![](images/rails_get_tag.png)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+こちらがPostメソッドの画像
+![](images/rails_post_tag.png)
