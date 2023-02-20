@@ -5,33 +5,27 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(post_params)
-  
-    if post.save
-      tags = params[:tags]
-      if tags.present?
-        tags.split(',').each do |tag_name|
-          post.tags << Tag.find_or_create_by(name: tag_name)
+    @post = Post.new(post_params)
+      @tags = params[:tags]
+      if @tags.present?
+        @tags.split(',').each do |tag_name|
+          @post.tags << Tag.find_or_create_by(name: tag_name)
         end
       end
-  
-      render json: { status: 'SUCCESS', message: 'Saved post', data: post }, status: :ok
-    else
-      render json: { status: 'ERROR', message: 'Post not saved', data: post.errors }, status: :unprocessable_entity
-    end
   end
 
   def update
-    post = Post.find(params[:id])
-    if post.update(post_params)
-      tags = params[:tags].split(",")
-      post.taggings.destroy_all
-      tags.each do |tag|
-        post.taggings.create(tag: Tag.find_or_create_by(name: tag.strip))
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      @tags = params[:tags].split(",")
+      @post.taggings.destroy_all
+      @tags.each do |tag|
+        @post.taggings.create(tag: Tag.find_or_create_by(name: tag.strip))
       end
-      render json: post, status: :ok
+      render json:{ message: 'SUCCESS', data: @post}, status: :ok
     else
-      render json: post.errors, status: :unprocessable_entity
+      render json:{ message: 'ERROR', data: @post.errors}, status: :unprocessable_entity
+
     end
   end
 
