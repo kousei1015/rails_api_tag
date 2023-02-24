@@ -8,6 +8,7 @@ class Api::V1::FavoritesController < ApplicationController
   def create
     @favorite = Favorite.new(post_id: params[:post_id], user_id: current_user.id)
     @post = @favorite.post
+    render 'create.json.jbuilder', status: @favorite.save ? :created : :unprocessable_entity
   end
 
   def destroy

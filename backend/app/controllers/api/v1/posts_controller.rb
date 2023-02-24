@@ -12,6 +12,7 @@ class Api::V1::PostsController < ApplicationController
           @post.tags << Tag.find_or_create_by(name: tag_name)
         end
       end
+      render 'create.json.jbuilder', status: @post.save ? :created : :unprocessable_entity
   end
 
   def update
